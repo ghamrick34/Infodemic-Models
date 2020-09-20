@@ -7,10 +7,12 @@ S_data = c(349,254,235,201,153.5,121,108,97,83)
 I_data = c(1,7,14.5,22,29,21,8,8,0)
 R_data = N - S_data - I_data
 
-# Took August to May to be 9*30 days, Mid-May to be May 15th, and used 4ths of month
+# Took August to May to be 9*30 days, Mid-May to be May 15th, 
+# and used 4ths of month
 time = c(0,270,320,335,351,366,382,397,428)
 
-# On the last day of data collection, there are 0 infectives, so the number of susceptibles on that day is S(infinity)
+# On the last day of data collection, there are 0 infectives, 
+# so the number of susceptibles on that day is S(infinity)
 Sinf = tail(S_data,1)
 S0 = S_data[1]
 I0 = I_data[1]
@@ -47,7 +49,8 @@ out.df <- as.data.frame(out)
 par(new=F,mar=c(5.1,4.1,4.1,5.1))
 plot(time,S_data,
      xlab='Time (days since August 1665)',
-     ylab='Susceptibles & Recovered (individuals)',
+     #ylab='Susceptibles & Recovered (individuals)',
+     ylab='Individuals',
      xlim=c(time[1],430), ylim=c(0,375),
      main='Eyam Plague')
 lines(out.df[c("time","S")], lty=1)
@@ -63,13 +66,14 @@ lines(out.df[c("time","R")], col='red', lty=1)
 par(new=T)
 plot(time,I_data, col='blue', 
      ann=F,axes=F, 
-     xlim=c(time[1],430), ylim=c(0,max(I_data,Imax)+2))
+     xlim=c(time[1],430), #ylim=c(0,max(I_data,Imax)+2))
+     ylim=c(0,350))
 lines(out.df[c("time","I")], col='blue', lty=1)
-mtext("Infectives (individuals)", side=4, line=3)
-axis(4)
+#mtext("Infectives (individuals)", side=4, line=3)
+#axis(4)
 
 # Add legend
-legend("topright",
+legend("top",
        legend=c("Model Susceptibles","Susceptibles Historical Data","Model Infectives","Infectives Historical Data","Model Recovered","Recovered Historical Data"),
        lty=c(1,NA,1,NA,1,NA),
        col=c("black","black","blue","blue","red","red"), 
